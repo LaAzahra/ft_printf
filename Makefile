@@ -1,34 +1,28 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    MAKEFILE                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: lrachid <lrachid@student.42.fr>            +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2025/11/16 22:29:07 by lrachid           #+#    #+#              #
-#    Updated: 2025/11/16 22:41:38 by lrachid          ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
-
 NAME = libftprintf.a
+
 CC = cc
-CFLAGS = -Wall -Wextra -Werror
-SRCS = ft_printf.c ft_printf_utils.c
-OBJS = $(SRCS:.c=.o)
+FLAGS = -Wall -Wextra -Werror
+
+SRCS = ft_printf.c ft_putstr.c ft_putchar.c \
+       ft_putnbr.c ft_puthex.c ft_putptr.c
+
+LIB = ft_printf.h
+
+OBJS = ${SRCS:.c=.o}
+
+%.o: %.c $(LIB)
+	$(CC) $(FLAGS) -c $< -o $@
 
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	@ar rcs $(NAME) $(OBJS)
-
-%.o: %.c
-	$(CC) $(CFLAGS) -c $< -o $@
+	ar rcs $(NAME) $(OBJS)
 
 clean:
-	@rm -f $(OBJS)
+	rm -f $(OBJS)
 
 fclean: clean
-	@rm -f $(NAME)
+	rm -f $(NAME)
 
 re: fclean all
 
